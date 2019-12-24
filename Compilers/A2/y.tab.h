@@ -1,0 +1,15 @@
+#define DTYPE 257
+#define STRING 258
+#define VAR 259
+#define NUM 260
+#define MAIN 261
+#define FNUM 262
+#define IF 263
+#define ELSE 264
+#define COMP 265
+#define LOGICOP 266
+#define ARITHOP 267
+#define ASSIGNOP 268
+#define FOR 269
+#define UNARYOP 270
+#define WHILE 271
