@@ -1,5 +1,7 @@
 %{
 	#include <stdio.h>
+	int yylex();
+	int yyerror();
 %}
 
 %token DTYPE STRING VAR NUM MAIN FNUM IF ELSE COMP LOGICOP ARITHOP ASSIGNOP FOR UNARYOP WHILE
@@ -67,10 +69,11 @@ while_stmt: WHILE '(' condition ')' '{' stmtlist '}'
 
 %%
 
-void yyerror(char * s) 
+int yyerror(char * s) 
 /* yacc error handler */
 {    
 	fprintf(stderr, "%s\n", s); 
+	return -1;
 }  
    
 int main(void)  
