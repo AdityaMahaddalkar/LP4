@@ -3,7 +3,8 @@
 	#include <stdlib.h>
 	#include <string.h>
 	#include "y.tab.h"
-	
+	char *datatype;	
+
 %}
 
 number [0-9]+
@@ -28,7 +29,7 @@ string_literal \"(\\.|[^"\\])*\"
 "while" {return WHILE;}
 {string_literal} {yylval.sValue = strdup(yytext); return STRING;}
 {unary_operator} {return UNARYOP;}
-{type_keyword} {yylval.sValue = strdup(yytext); return DTYPE;}
+{type_keyword} {yylval.sValue = strdup(yytext); datatype = strdup(yytext); return DTYPE;}
 {comparators} {return COMP;}
 {arithmetic_operator} {return ARITHOP;}
 {assignment} {return ASSIGNOP;}

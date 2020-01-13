@@ -495,9 +495,10 @@ char *yytext;
 	#include <stdlib.h>
 	#include <string.h>
 	#include "y.tab.h"
-	
-#line 500 "lex.yy.c"
+	char *datatype;	
+
 #line 501 "lex.yy.c"
+#line 502 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -714,9 +715,9 @@ YY_DECL
 		}
 
 	{
-#line 22 "lex.l"
+#line 23 "lex.l"
 
-#line 720 "lex.yy.c"
+#line 721 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -776,96 +777,96 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 23 "lex.l"
+#line 24 "lex.l"
 {};
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 24 "lex.l"
+#line 25 "lex.l"
 {return MAIN;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 25 "lex.l"
+#line 26 "lex.l"
 {return IF;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 26 "lex.l"
+#line 27 "lex.l"
 {return ELSE;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 27 "lex.l"
+#line 28 "lex.l"
 {return FOR;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 28 "lex.l"
+#line 29 "lex.l"
 {return WHILE;}
 	YY_BREAK
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 29 "lex.l"
+#line 30 "lex.l"
 {yylval.sValue = strdup(yytext); return STRING;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 30 "lex.l"
+#line 31 "lex.l"
 {return UNARYOP;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 31 "lex.l"
-{yylval.sValue = strdup(yytext); return DTYPE;}
+#line 32 "lex.l"
+{yylval.sValue = strdup(yytext); datatype = strdup(yytext); return DTYPE;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 32 "lex.l"
+#line 33 "lex.l"
 {return COMP;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 33 "lex.l"
+#line 34 "lex.l"
 {return ARITHOP;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 34 "lex.l"
+#line 35 "lex.l"
 {return ASSIGNOP;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 35 "lex.l"
+#line 36 "lex.l"
 {return LOGICOP;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 36 "lex.l"
+#line 37 "lex.l"
 {yylval.sValue = strdup(yytext); return VAR;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 37 "lex.l"
+#line 38 "lex.l"
 {yylval.fValue = atof(yytext); return FNUM;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 38 "lex.l"
+#line 39 "lex.l"
 {yylval.iValue = atoi(yytext); return NUM;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 39 "lex.l"
+#line 40 "lex.l"
 {return yytext[0];}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 41 "lex.l"
+#line 42 "lex.l"
 ECHO;
 	YY_BREAK
-#line 869 "lex.yy.c"
+#line 870 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1870,7 +1871,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 41 "lex.l"
+#line 42 "lex.l"
 
 
 int yywrap(){

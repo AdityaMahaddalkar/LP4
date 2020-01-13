@@ -1,17 +1,19 @@
 clear
 yacc -d yacc_parser.y
-sleep 1
 lex lex.l
-sleep 1
-gcc y.tab.c lex.yy.c -o parser
-./parser
-#output="$(./parser)"
-#echo $output
+compile_output="$(gcc y.tab.c lex.yy.c -o parser)"
+#./parser
+#output=$(./parser)
+#echo $compile_output
 
-#if [ -z $output ]
-#then
-#	echo "Compiled Successfully"
-#	echo "No errors"
-#fi
+if [ -z "$compile_output" ]
+then
+	echo "Compiled Successfully"
+	echo "No errors"
+else
+	echo "Error while compiling"
+fi
+
+./parser
 
 date

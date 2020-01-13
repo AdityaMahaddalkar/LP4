@@ -50,12 +50,12 @@ extern int yydebug;
     DTYPE = 260,
     STRING = 261,
     VAR = 262,
-    MAIN = 263,
-    IF = 264,
-    ELSE = 265,
-    COMP = 266,
-    LOGICOP = 267,
-    ARITHOP = 268,
+    ARITHOP = 263,
+    MAIN = 264,
+    IF = 265,
+    ELSE = 266,
+    COMP = 267,
+    LOGICOP = 268,
     ASSIGNOP = 269,
     FOR = 270,
     UNARYOP = 271,
@@ -68,12 +68,12 @@ extern int yydebug;
 #define DTYPE 260
 #define STRING 261
 #define VAR 262
-#define MAIN 263
-#define IF 264
-#define ELSE 265
-#define COMP 266
-#define LOGICOP 267
-#define ARITHOP 268
+#define ARITHOP 263
+#define MAIN 264
+#define IF 265
+#define ELSE 266
+#define COMP 267
+#define LOGICOP 268
 #define ASSIGNOP 269
 #define FOR 270
 #define UNARYOP 271
@@ -84,7 +84,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 12 "yacc_parser.y" /* yacc.c:1909  */
+#line 14 "yacc_parser.y" /* yacc.c:1909  */
 
 	int iValue;
 	float fValue;
