@@ -1,2 +1,29 @@
 //{fprintf(logfile, "Assigning %s to %s\n", $3, $1); assignVariableToVariable(&sTab, $1, $3);}
 //{fprintf(logfile, "Assigning %d to %s\n", $3, $1); assignNumberToVariable(&sTab, $1, $3);}
+
+| VAR 									{$$ = returnFloatValue(&sTab, $1);}
+
+
+//VER 1.0
+
+
+arithmetic_stmt: VAR EQUAL VAR ARITHOP int_arithlist ';'	 {int var_val = returnIntegerValue(&sTab, $3); int output = returnArithmeticOperationInt(var_val, $4, $5); assignNumberToVariable(&sTab, $1, output);}
+			   | VAR EQUAL NUM ARITHOP int_arithlist ';'				{assignNumberToVariable(&sTab, $1, returnArithmeticOperationInt($3, $4, $5));}
+			   | VAR EQUAL VAR ';'													{assignVariableToVariable(&sTab, $1, $3);}
+			   | VAR EQUAL NUM ';'													{assignNumberToVariable(&sTab, $1, $3);}
+			   | VAR EQUAL VAR ARITHOP float_arithlist ';'	{assignFNumberToVariable(&sTab, $1, returnArithmeticOperationFloat(returnFloatValue(&sTab, $3), $4, $5));}
+			   | VAR EQUAL FNUM ARITHOP float_arithlist ';'	{assignFNumberToVariable(&sTab, $1, returnArithmeticOperationFloat($3, $4, $5));}
+			   | VAR EQUAL FNUM ';'							{assignFNumberToVariable(&sTab, $1, $3);}
+			   ;
+
+
+int_arithlist: VAR ARITHOP int_arithlist	{$$ = returnArithmeticOperationInt(returnIntegerValue(&sTab, $1), $2, $3);}
+		 | NUM ARITHOP int_arithlist		{$$ = returnArithmeticOperationInt($1, $2, $3); }
+		 | VAR								{$$ = returnIntegerValue(&sTab, $1);}
+		 | NUM								{$$ = $1;}
+		 ;
+
+float_arithlist: VAR ARITHOP float_arithlist	{$$ = returnArithmeticOperationFloat(returnFloatValue(&sTab, $1), $2, $3);}
+		| FNUM ARITHOP float_arithlist			{$$ = returnArithmeticOperationFloat($1, $2, $3);}
+		| FNUM									{$$ = $1;}
+		;

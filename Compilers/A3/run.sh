@@ -1,7 +1,7 @@
 clear
 yacc -d yacc_parser.y
 lex lex.l
-compile_output="$(gcc y.tab.c lex.yy.c -o parser)"
+compile_output="$(gcc -w -std=c99 y.tab.c lex.yy.c -o parser)"
 #./parser
 #output=$(./parser)
 #echo $compile_output

@@ -38,18 +38,6 @@ void addVariableWithoutValue(symtab *stab, char *var_name){
 	//printf("DEBUG: Executing addVariableWithoutValue %s\n", datatype);
 	node *current;
 
-	//Change datatype char for our convenience
-	/*
-	if(strcmp(datatype, "int") == 0){
-		datatype = "int";
-	}
-	else if(strcmp(datatype, "float") == 0){
-		datatype = "float";
-	}
-	else if(strcmp(datatype, "char") == 0){
-		datatype = "char";
-	}
-	*/
 	if((current = isPresent(stab, var_name)) != NULL){
 		fprintf(stderr, "ERROR: Variable %s redeclaration\n", var_name);
 		return;
@@ -78,9 +66,8 @@ void addString(symtab *stab, char *var_name, char *value){
 	node *current;
 	if((current = isPresent(stab, var_name)) != NULL){
 
-		//printf("INFO:%s already present in SYMTAB\n", var_name);
-		current->data_value.sValue = strdup(value);
-		return;
+		fprintf(stderr, "ERROR:%s already present in SYMTAB\n", var_name);
+		exit(-1);
 
 	}
 
@@ -111,9 +98,8 @@ void addInt(symtab *stab, char *var_name, int value){
 	node *current;
 	if((current = isPresent(stab, var_name)) != NULL){
 
-		//printf("INFO:%s already present in SYMTAB\n", var_name);
-		current->data_value.iValue = value;
-		return;
+		fprintf(stderr, "ERROR:%s already present in SYMTAB\n", var_name);
+		exit(-1);
 
 	}
 
@@ -144,9 +130,9 @@ void addFloat(symtab *stab, char *var_name, float value){
 	node *current;
 	if((current = isPresent(stab, var_name)) != NULL){
 
-		//printf("INFO:%s already present in SYMTAB\n", var_name);
-		current->data_value.fValue = value;
-		return;
+		fprintf(stderr, "ERROR:%s already present in SYMTAB\n", var_name);
+		//current->data_value.fValue = value;
+		exit(-1);
 
 	}
 
@@ -219,16 +205,52 @@ void assignNumberToVariable(symtab *stab, char *var_name, int value){
 
 	node *current;
 	if((current = isPresent(stab, var_name)) != NULL){
-
-		current->data_value.fValue = value;
-		return;
+		if(strcmp(current->data_type, "int")==0){
+			current->data_value.iValue = value;
+			return;
+		}
+		
 
 	}
 	else{
 
-		fprintf(stderr, "%s doesnot exist in symbol table\n", var_name);
+		fprintf(stderr, "%s doesnot exist in symbol table or invalid datatype\n", var_name);
+		exit(-1);
 	}
 
+}
+
+void assignFNumberToVariable(symtab *stab, char *var_name, float value){
+	//VAR = NUM;
+
+	node *current;
+	if((current = isPresent(stab, var_name)) != NULL){
+		if(strcmp(current->data_type, "float")==0){
+			current->data_value.fValue = value;
+			return;
+		}
+	}
+	else{
+
+		fprintf(stderr, "%s doesnot exist in symbol table of invalid datatype\n", var_name);
+		exit(-1);
+	}
+
+}
+
+void assignStringToVariable(symtab *stab, char *var_name, char *value){
+	node *current;
+	if((current = isPresent(stab, var_name)) != NULL){
+		if(strcmp(current->data_type, "char")==0){
+			current->data_value.sValue = strdup(value);
+			return;
+		}
+	}
+	else{
+
+		fprintf(stderr, "%s doesnot exist in symbol table of invalid datatype\n", var_name);
+		exit(-1);
+	}
 }
 
 
@@ -293,24 +315,68 @@ int returnIntegerValue(symtab *stab, char *var_name){
 	}
 	else{
 		fprintf(stderr, "ERROR: %s variable doesnot exist\n", var_name);
-		return 0;
+		exit(-1);
+	}
+}
+
+float returnFloatValue(symtab *stab, char *var_name){
+	node *current;
+
+	if((current = isPresent(stab, var_name)) != NULL){
+		if(strcmp(current->data_type, "float")!=0){
+			fprintf(stderr, "ERROR: %s is not float\n", var_name);
+			return 0;
+		}
+		return current->data_value.fValue;
+	}
+	else{
+		fprintf(stderr, "ERROR: %s variable doesnot exist\n", var_name);
+		exit(-1);
 	}
 }
 
 int returnArithmeticOperationInt(int a, char *op, int b){
+	printf("a op b: %d %s %d", a, op, b);
+	if(strcmp(op, "+") == 0)
+		return a+b;
+	else if(strcmp(op, "-") == 0)
+		return a-b;
+	else if(strcmp(op, "*") == 0)
+		return a*b;
+	else if(strcmp(op, "/") == 0)
+		return a/b;
+	else{
+		fprintf(stderr, "ERROR: %s operation not defined\n", op);
+		exit(-1);
+	}
+}
 
-		if(strcmp(op, "+") == 0)
-			return a+b;
-		else if(strcmp(op, "-") == 0)
-			return a-b;
-		else if(strcmp(op, "*") == 0)
-			return a*b;
-		else if(strcmp(op, "/") == 0)
-			return a/b;
-		else{
-			fprintf(stderr, "ERROR: %s operation not defined\n", op);
-			return 0;
-		}
+float returnArithmeticOperationFloat(float a, char *op, float b){
+	if(strcmp(op, "+") == 0)
+		return a+b;
+	else if(strcmp(op, "-") == 0)
+		return a-b;
+	else if(strcmp(op, "*") == 0)
+		return a*b;
+	else if(strcmp(op, "/") == 0)
+		return a/b;
+	else{
+		fprintf(stderr, "ERROR: %s operation not defined\n", op);
+		exit(-1);
+	}
+
+}
+
+char* returnDataType(symtab *stab, char *var_name){
+	node *current;
+
+	if((current = isPresent(stab, var_name)) != NULL){
+		return current->data_type;
+	}
+	else{
+		fprintf(stderr, "ERROR: %s variable doesnot exist\n", var_name);
+		exit(-1);
+	}
 }
 
 //😖️

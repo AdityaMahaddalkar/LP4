@@ -27,12 +27,13 @@ string_literal \"(\\.|[^"\\])*\"
 "else" {return ELSE;}
 "for" {return FOR;}
 "while" {return WHILE;}
+"=" {yylval.sValue = "="; return EQUAL;}
 {string_literal} {yylval.sValue = strdup(yytext); return STRING;}
 {unary_operator} {return UNARYOP;}
 {type_keyword} {yylval.sValue = strdup(yytext); datatype = strdup(yytext); return DTYPE;}
 {comparators} {return COMP;}
-{arithmetic_operator} {return ARITHOP;}
-{assignment} {return ASSIGNOP;}
+{arithmetic_operator} {yylval.sValue = strdup(yytext); return ARITHOP;}
+{assignment} {yylval.sValue = strdup(yytext); return ASSIGNOP;}
 {logical_operator} {return LOGICOP;}
 {variable} {yylval.sValue = strdup(yytext); return VAR;}
 {float_number} {yylval.fValue = atof(yytext); return FNUM;}
