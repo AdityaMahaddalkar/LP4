@@ -99,7 +99,6 @@ expression: expression ARITHOP expression	{$<fValue>$ = returnArithmeticOperatio
 					fprintf(stderr, "ERROR: in expression -> expression Arithop expression\n");
 				}
 
-
 		}
 		| NUM	{$<iValue>$ = $1;}
 		| FNUM	{$<fValue>$ = $1;}

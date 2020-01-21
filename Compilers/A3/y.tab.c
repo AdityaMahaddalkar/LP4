@@ -291,7 +291,7 @@ typedef struct {
 } YYSTACKDATA;
 /* variables for the parser stack */
 static YYSTACKDATA yystack;
-#line 123 "yacc_parser.y"
+#line 122 "yacc_parser.y"
 
 int yyerror(char * s)
 {
@@ -589,18 +589,17 @@ case 30:
 					fprintf(stderr, "ERROR: in expression -> expression Arithop expression\n");
 				}
 
-
 		}
 break;
 case 31:
-#line 104 "yacc_parser.y"
+#line 103 "yacc_parser.y"
 	{yyval.iValue = yystack.l_mark[0].iValue;}
 break;
 case 32:
-#line 105 "yacc_parser.y"
+#line 104 "yacc_parser.y"
 	{yyval.fValue = yystack.l_mark[0].fValue;}
 break;
-#line 603 "y.tab.c"
+#line 602 "y.tab.c"
     }
     yystack.s_mark -= yym;
     yystate = *yystack.s_mark;
